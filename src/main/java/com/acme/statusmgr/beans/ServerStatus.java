@@ -1,5 +1,6 @@
 package com.acme.statusmgr.beans;
 
+import com.acme.Application;
 import com.acme.servermgr.ServerManager;
 
 /**
@@ -12,6 +13,11 @@ public class ServerStatus {
     private String statusDesc = "Unknown";
 
     /**
+     * This will refer to an instance of the ServerManager class (no longer static)
+     */
+    private ServerManager serverManager;
+
+    /**
      * Construct a ServerStatus using info passed in for identification, and obtaining current
      * server status from the appropriate Manager class.
      *
@@ -22,8 +28,8 @@ public class ServerStatus {
         this.id = id;
         this.contentHeader = contentHeader;
 
-        // Obtain current status of server
-        this.statusDesc = ServerManager.getCurrentServerStatus();
+        // Obtain and save reference to the ServerManager
+        serverManager = (ServerManager) Application.getApplicationContext().getBean("serverManager");
     }
 
     public ServerStatus() {
@@ -41,7 +47,7 @@ public class ServerStatus {
 
 
     public String getStatusDesc() {
-        return statusDesc;
+        return serverManager.getCurrentServerStatus();
     }
 
 
