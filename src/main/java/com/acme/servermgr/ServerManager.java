@@ -5,15 +5,14 @@ import org.springframework.stereotype.Component;
 
 /**
  * Manage all servers (service providers) being tracked by the Acme server tracking system
- * For now just some simple static methods for use in school project
+ * For now just some simple methods for use in school project
  */
 @Component
 public class ServerManager {
 
     /**
-     * A framework will inject what we are to use for monitoring servers
+     * Reference to a class that knows how to get details about what we are interested in on a server
      */
-    @Autowired
     private MonitorableServer monitor;
 
 
@@ -35,5 +34,5 @@ public class ServerManager {
      public Boolean isOperatingNormally()
     {
         return true;
-    }    //TODO should use the monitor interface
+    }    //TODO should eventually use the monitor interface
 }
