@@ -1,5 +1,6 @@
 package com.acme.servermgr;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,6 +13,7 @@ public class ServerManager {
     /**
      * Reference to a class that knows how to get details about what we are interested in on a server
      */
+    @Autowired
     private IMonitorableServer monitor;
 
 
