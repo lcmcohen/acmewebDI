@@ -32,9 +32,6 @@ public class ServerStatus {
         serverManager = (ServerManager) Application.getApplicationContext().getBean("serverManager");
     }
 
-    public ServerStatus() {
-
-    }
 
     public long getId() {
         return id;
