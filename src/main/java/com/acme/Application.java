@@ -14,18 +14,23 @@ public class Application {
     /**
      * Maintain a reference to Spring's 'context' for our application.
      */
-    private static ApplicationContext applicationContext;
+    private static ApplicationContext applicationContext = null;
+
     public static void main(String[] args) {
-        applicationContext = new AnnotationConfigApplicationContext(Application.class);
         SpringApplication.run(Application.class, args);
     }
 
     /**
-     * Obtain reference to Spring's 'context' for our application.
+     * Obtain lazy-int'ed reference to Spring's 'context' for our application.
      * @return
      */
     public static ApplicationContext getApplicationContext()
     {
+        if (applicationContext == null)
+        {
+            applicationContext = new AnnotationConfigApplicationContext(Application.class);
+        }
+
         return applicationContext;
     }
 
