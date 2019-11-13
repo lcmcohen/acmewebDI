@@ -23,9 +23,9 @@ public class SlowRealMonitor   implements IMonitorableServer      {
             goodStatus = false;
         }
 
-        return String.format("As of %s: Server is %s", getCurrentTimeStamp(),
-                goodStatus ? "up and running well, #CPUs available is: " + origNumCPUs
-                        : "up but with a varying number of available CPUs");
+        return goodStatus ? "Server is up and running well, #CPUs available is: " + origNumCPUs
+                : "Server is up with a varying number of available CPUs";
+
     }
 
     /**
@@ -38,15 +38,5 @@ public class SlowRealMonitor   implements IMonitorableServer      {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-
-    /**
-     * Get current time
-     * @return local time in sting
-     */
-    public String getCurrentTimeStamp() {
-        return LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("HH:mm:ss.SSS"));
     }
 }
