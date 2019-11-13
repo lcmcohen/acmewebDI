@@ -3,11 +3,13 @@ package com.acme.servermgr;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
- * Implement a fake server monitor such as would be used for unit tests, annotated as a Spring Service.
+ * Implement a 'real' server monitor, that gives back results that may differ from what unit tests expect.
  */
 @Service
-@Primary    // Use of this may cause unit tests to fail since they expect a canned output
 public class SlowRealMonitor   implements IMonitorableServer      {
 
     public String determineServerStatus() {
@@ -21,13 +23,14 @@ public class SlowRealMonitor   implements IMonitorableServer      {
             goodStatus = false;
         }
 
-        return goodStatus ? "Server is up and running well, #CPUs available is: " + origNumCPUs
-                : "Server is up with a varying number of available CPUs";
-
+        return String.format("As of %s: Server is %s", getCurrentTimeStamp(),
+                goodStatus ? "up and running well, #CPUs available is: " + origNumCPUs
+                        : "up but with a varying number of available CPUs");
     }
 
-
-
+    /**
+     * sleep 4 seconds
+     */
     private void wait4seconds()
     {
         try {
@@ -35,5 +38,15 @@ public class SlowRealMonitor   implements IMonitorableServer      {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * Get current time
+     * @return local time in sting
+     */
+    public String getCurrentTimeStamp() {
+        return LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("HH:mm:ss.SSS"));
     }
 }
