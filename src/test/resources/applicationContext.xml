@@ -8,7 +8,7 @@
 
     <!-- This file provides configurations for the 'acme' server -->
 
-    <!-- For production execution use the real monitor -->
+    <!-- For TEST execution use the FAKE monitor that returns static responses -->
     <bean id="monitor"    class="com.acme.servermgr.FakeMonitor"></bean>
 
 
