@@ -3,9 +3,7 @@ package com.acme.statusmgr;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.acme.statusmgr.beans.ServerStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Controller for all web/REST requests about the status of servers
@@ -43,4 +41,27 @@ public class StatusController {
         return new ServerStatus(counter.incrementAndGet(),
                             String.format(template, name));
     }
+
+
+
+
+    /**
+     * Handle a POST HTTP message telling us about items that have gone low on inventory.
+     * This is code for a Spring web server, method would go into
+     * a class declared as:
+     *          @RestController
+     *          @RequestMapping("/server")
+     *          public class StatusController { ... }
+     *
+     */
+@PostMapping("/lowinventory")
+public String handleLowInventory(@RequestBody String requestBody) {
+    // Process the request body (string)
+    System.out.println("\n\n********\n\nReceived LOW INVENTORY Message about: " + requestBody);
+    System.out.println("We have 50 in stock and this program just sent an automated bid with our best price");
+    System.out.println("\n*******\n\n");
+
+    // Return a response string
+    return "Processed: " + requestBody;
+}
 }
