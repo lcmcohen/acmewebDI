@@ -18,6 +18,9 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")    // web communication
     implementation('org.springframework.boot:spring-boot-starter-test')   // unit tests that work with MVC
+
+        // Jackson Databind for JSON parsing
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
 }
 
 test {
