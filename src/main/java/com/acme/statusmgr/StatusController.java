@@ -56,10 +56,33 @@ public class StatusController {
      */
 @PostMapping("/lowinventory")
 public String handleLowInventory(@RequestBody String requestBody) {
-    // Process the request body (string)
-    System.out.println("\n\n********\n\nReceived LOW INVENTORY Message about: " + requestBody);
-    System.out.println("We have 50 in stock and this program just sent an automated bid with our best price");
-    System.out.println("\n*******\n\n");
+        System.out.println("RAW MSG:\n\n" + requestBody);
+
+    try {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode outerJson = mapper.readTree(requestBody);
+
+        String innerMessageStr = outerJson.path("Message").asText();
+
+        // Step 3: Parse the inner string into a secondary JsonNode
+        JsonNode innerJson = mapper.readTree(innerMessageStr);
+
+        // Step 4: Safely extract your visual fields!
+        String itemName = innerJson.path("itemName").asText("Unknown Item");
+
+        System.out.println("\n\n********");
+        System.out.println("Item Name: " + itemName);
+        System.out.println("********\n\n");
+
+        // Process the request body (string)
+        System.out.println("\n\n********\n\nACE HARDWARE has received LOW INVENTORY Message about: " + itemName);
+        System.out.println("We have the requested items in stock and are shipping them out.");
+        System.out.println("\n*******\n\n");
+
+    } catch (Exception e) {
+        System.out.println("Failed to parse JSON: " + e.getMessage());
+    }
+
 
     // Return a response string
     return "Processed: " + requestBody;
